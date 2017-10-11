@@ -2,24 +2,24 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-week4 <- read.csv('~/Documents/GitHub/power-rankings/week_4.csv') %>% janitor::clean_names()
+week5 <- read.csv('~/Documents/GitHub/power-rankings/week_5.csv') %>% janitor::clean_names()
 
-w4_gathered <- gather(week4, key = ranker, value = team, -ranking)
+w5_gathered <- gather(week5, key = ranker, value = team, -ranking)
 
 # create a key called ranker, and a value named team
 # key takes ranker names as its value
 # value keys each ranker's rankings to ranker name, still ordered by ranking
 
 
-w4_gathered$team <- as.factor(w4_gathered$team)
+w5_gathered$team <- as.factor(w5_gathered$team)
 
-w4_ordered <- w4_gathered[-c(2)] %>% arrange(ranking, team) 
+w5_ordered <- w5_gathered[-c(2)] %>% arrange(ranking, team) 
 
-ggplot(w4_ordered, aes(x = reorder(team, ranking), y = ranking, fill = team)) +
+ggplot(w5_ordered, aes(x = reorder(team, ranking), y = ranking, fill = team)) +
   geom_boxplot() +
   scale_y_continuous(trans = "reverse") +
   labs(title    = 'Power Rankings at r/NFL',
-       subtitle = 'Week 4',
+       subtitle = 'Week 5',
        x        = 'Team',
        y        = 'Average Ranking') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
