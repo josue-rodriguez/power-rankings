@@ -9,7 +9,7 @@ import_rankings <- map(excel_sheets(path),
 
 power_rankings <- map(import_rankings, gather, key = ranker, value = team, -ranking)
 
-df_names <- paste('Week', 1:length(power_rankings), sep = " ") 
+df_names <- paste0('Week', 1:length(power_rankings)) 
 names(power_rankings) <- df_names
 
 list2env(power_rankings, .GlobalEnv)
