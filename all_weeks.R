@@ -10,11 +10,7 @@ import_rankings <- map(excel_sheets(path),
 
 power_rankings <- map(import_rankings, gather, key = ranker, value = team, -ranking)
 
-<<<<<<< HEAD
-df_names <- paste0('week', 1:length(power_rankings)) 
-=======
-df_names <- paste0('Week', 1:length(power_rankings)) 
->>>>>>> 6d85dd930b83ccdd95ce9987c06238b3094db9ce
+df_names <- paste0('Week', 1:length(power_rankings))
 names(power_rankings) <- df_names
 
 list2env(power_rankings, .GlobalEnv)
