@@ -10,7 +10,11 @@ import_rankings <- map(excel_sheets(path),
 
 power_rankings <- map(import_rankings, gather, key = ranker, value = team, -ranking)
 
+<<<<<<< HEAD
 df_names <- paste0('week', 1:length(power_rankings)) 
+=======
+df_names <- paste0('Week', 1:length(power_rankings)) 
+>>>>>>> 6d85dd930b83ccdd95ce9987c06238b3094db9ce
 names(power_rankings) <- df_names
 
 list2env(power_rankings, .GlobalEnv)
@@ -84,6 +88,8 @@ afc_north <- all_gathered %>% filter(team == 'Browns'|team == 'Bengals'|team == 
   stat_summary(fun.y = mean, geom = 'line') +
   labs(main = 'r/NFL Power Rankings', x = 'Weeks', y = 'Average Ranking') +
   scale_y_continuous(trans = 'reverse')
+
+
 #####
   # path <- "urbanpop.xls"
   # urban_sheet1 <- read.xls(path, sheet = 1, stringsAsFactors = FALSE)
