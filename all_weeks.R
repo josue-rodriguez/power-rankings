@@ -1,6 +1,5 @@
 library(tidyverse)
 library(readxl)
-library(directlabels)
 
 path <- '~/Documents/GitHub/power-rankings/power-rankings.xlsx'
 
@@ -10,12 +9,12 @@ import_rankings <- map(excel_sheets(path),
 
 power_rankings <- map(import_rankings, gather, key = ranker, value = team, -ranking)
 
-df_names <- paste0('week', 1:length(power_rankings))
+df_names <- paste0('week', 0:6)
 names(power_rankings) <- df_names
 
 list2env(power_rankings, .GlobalEnv)
 
-all_weeks <- cbind(week1[3], week2[3], week3[3], week4[3], week5[3]) 
+all_weeks <- cbind(week0[3], week1[3], week2[3], week3[3], week4[3], week5[3], week6[3]) 
 colnames(all_weeks) <- df_names
 
 all_weeks <- cbind(week1[1], all_weeks)
