@@ -6,9 +6,10 @@ library(purrr)
 setwd('~/Documents/GitHub/power-rankings')
 
 levels(all_gathered$team)
-all_cols <- c('#896C4C', '#DC4405', '#FC4C02', '#C8102E', '#FC4C02', '#382F2D', '#9B2743', '#041E42', '#0072CE', '#C8102E', '#001489',
-              '#003594','#008E97', '#003594', '#A6192E', '#001E62', '#006073', '#0C371D', '#0069B1', '#A6192E',  )
 
+all_colors <- c('#9B2743', '#051C2C', '#FC4C02', '#00338D', '#FC4C02', '#382F2D', '#C8102E', '#B0063A', '#0072CE', '#C8102E', '#001489', 
+                '#003594', '#008E97', '#064C53', '#A6192E', '#001E62', '#006073', '#0C371D', '#0069B1', '#175E33', '#0085CA', '#0C2340',
+                '#101820', '#002244', '#241773', '#862633', '#A28D5B', '#4DFF00', '#FFB81C', '#A6192E', '#4B92DB', '#512D6D')
 
 # create a plot for all teams
 all_plot <- ggplot(all_gathered, aes(x = week, y = ranking, group = team, color = team)) +
@@ -16,7 +17,7 @@ all_plot <- ggplot(all_gathered, aes(x = week, y = ranking, group = team, color 
   labs(title = 'r/NFL Power Rankings', x = 'Week', y = 'Average Ranking', color = 'Teams') +
   scale_x_discrete(labels = paste('Week', 0:(length(power_rankings) - 1), sep = ' ')) +
   scale_y_continuous(trans = 'reverse', breaks = seq(1, 32, 2), sec.axis = dup_axis()) +
-  scale_color_manual(values = all_cols) +
+  scale_color_manual(values = all_colors) +
   theme(panel.grid.minor = element_blank())
 
 all_plot <- direct.label(all_plot, method = list('first.bumpup', dl.trans(x = x - .15), cex = .65))
@@ -61,34 +62,36 @@ afc_west <- plots('Raiders','Chiefs', 'Broncos','Chargers', 'AFC West', afc_west
 afc_east <- plots('Patriots', 'Jets', 'Bills', 'Dolphins', 'AFC East', afc_east_cols)
 
 
-# # graphs and graph names into lists
-# graphs <- list(nfc_north, nfc_south, nfc_west, nfc_east,
-#                afc_north, afc_south, afc_west, afc_east,
-#                all_plot)
-# 
-# filenames <- list('nfc-north.png', 'nfc-south.png', 'nfc-west.png', 'nfc-east.png',
-#                   'afc-north.png', 'afc-south.png', 'afc-west.png', 'afc-east.png',
-#                   'all-teams.png')
-# 
-# # function for saving graphs
-# save_graphs <- function(file.name, graph){
-# 
-#   png(filename = file.name, units = 'px', width = 1536, height = 1024, res = 200)
-# 
-#   print(graph)
-# 
-#   dev.off()
-# 
-# }
-# 
-# # set graph destination
-# setwd('~/Dropbox/NFL Graphs/Week 9')
-# 
-# # save all graphs
-# map2(filenames, graphs, save_graphs)
-# 
-# 
-# 
-# setwd('~/Desktop/')
-# write.csv(all_gathered, file = 'all_gathered.csv')
-# dir()
+# graphs and graph names into lists
+graphs <- list(nfc_north, nfc_south, nfc_west, nfc_east,
+               afc_north, afc_south, afc_west, afc_east,
+               all_plot)
+
+filenames <- list('nfc-north.png', 'nfc-south.png', 'nfc-west.png', 'nfc-east.png',
+                  'afc-north.png', 'afc-south.png', 'afc-west.png', 'afc-east.png',
+                  'all-teams.png')
+
+# function for saving graphs
+save_graphs <- function(file.name, graph){
+
+  png(filename = file.name, units = 'px', width = 1536, height = 1024, res = 200)
+
+  print(graph)
+
+  dev.off()
+
+}
+
+# set graph destination
+setwd('~/Dropbox/NFL Graphs/Week 9')
+
+# save all graphs
+map2(filenames, graphs, save_graphs)
+
+
+
+setwd('~/Desktop/')
+write.csv(all_gathered, file = 'all_gathered.csv')
+dir()
+
+
