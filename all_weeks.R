@@ -17,7 +17,7 @@ names(power_rankings) <- df_names
 list2env(power_rankings, .GlobalEnv)
 
 all_weeks <- cbind(week0[3], week1[3], week2[3], week3[3], week4[3], week5[3], week6[3], week7[3], week8[3],
-                   week9[3], week10[3]) 
+                   week9[3], week10[3], week11[3]) 
 colnames(all_weeks) <- df_names
 
 all_weeks <- cbind(week1[1], all_weeks)
