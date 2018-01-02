@@ -4,15 +4,14 @@ library(dplyr)
 library(purrr)
 
 setwd('~/Documents/GitHub/power-rankings')
-
-levels(all_gathered$team)
+source('all_weeks.R')
 
 all_colors <- c('#9B2743', '#051C2C', '#FC4C02', '#00338D', '#FC4C02', '#382F2D', '#C8102E', '#B0063A', '#0072CE', '#C8102E', '#001489', 
                 '#003594', '#008E97', '#064C53', '#A6192E', '#001E62', '#006073', '#0C371D', '#0069B1', '#175E33', '#0085CA', '#0C2340',
                 '#101820', '#002244', '#241773', '#862633', '#A28D5B', '#4DFF00', '#FFB81C', '#A6192E', '#4B92DB', '#512D6D')
 
 # create a plot for all teams
-all_plot <- ggplot(all_gathered, aes(x = week, y = ranking, group = team, color = team)) +
+all_plot <- ggplot(group_by(all_gathered, week, team), aes(x = week, y = ranking, group = team, color = team)) +
   stat_summary(fun.y = mean, geom = 'line', size = .75) +
   labs(title = 'r/NFL Power Rankings', x = 'Week', y = 'Average Ranking', color = 'Teams') +
   scale_x_discrete(labels = paste('Week', 0:(length(power_rankings) - 1), sep = ' ')) +
@@ -75,23 +74,16 @@ filenames <- list('nfc-north.png', 'nfc-south.png', 'nfc-west.png', 'nfc-east.pn
 save_graphs <- function(file.name, graph){
 
   png(filename = file.name, units = 'px', width = 1536, height = 1024, res = 200)
-
   print(graph)
-
   dev.off()
 
 }
 
 # set graph destination
-setwd('~/Dropbox/NFL Graphs/Week 9')
+setwd('~/Dropbox/NFL Graphs/Week 17')
 
 # save all graphs
 map2(filenames, graphs, save_graphs)
 
-
-
-setwd('~/Desktop/')
-write.csv(all_gathered, file = 'all_gathered.csv')
-dir()
 
 
